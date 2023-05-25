@@ -1,0 +1,51 @@
+{% load static %}
+
+<div class="col-lg-12">
+            <div class="box-element">
+                <a href="{% url 'store' %}" class="btn btn-outline-dark">&#x2190;Continue Shopping</a>
+                <br>
+                <br>
+
+                <table class="table">
+                    <tr>
+                        <th><h5>Items: <strong>{{ totalitems }}</strong></h5></th>
+                        <th><h5>Total: <strong>${{ total_amount }}</strong></h5></th>
+                        {% if totalitems %}
+                        <th>
+                            <a style="float: right; margin: 5px;" href="{% url 'checkout' %}" class="btn btn-success">Checkout</a>
+                        </th>
+                        {% endif %}
+                    </tr>
+                </table>
+            </div>
+
+            <div class="box-element">
+                    <div class="cart-row">
+                        <div style="flex: 2"></div>
+                        <div style="flex: 2"><strong>Item</strong></div>
+                        <div style="flex: 1"><strong>Price</strong></div>
+                        <div style="flex: 1"><strong>Quantity</strong></div>
+                        <div style="flex: 1"><strong>Total</strong></div>
+                         <div style="flex: 1"><strong>Action</strong></div>
+                    </div>
+
+
+            {% for product_id, item in cart_data_ajax.items %}
+                <div class="cart-row">
+                        <div style="flex: 2"><img class="row-image" src="{{ item.image }}"></div>
+                        <div style="flex: 2"><a href="/product_ajx/{{ product_id }}">{{ item.title }}</a></div>
+                        <div style="flex: 1">${{ item.price }}</div>
+                        <div style="flex: 1">
+                            <input type="number" class="product-qty-{{ product_id }}" value="{{ item.qty }}" style="vertical-align: bottom; ">
+
+                        </div>
+                        <div style="flex: 1">${% widthratio item.price 1 item.qty %}</div>
+                        <div style="flex: 1">
+                            <button class="btn btn-sm btn-info update-item-ajax" data-item="{{ product_id }}">Update</button>
+                            <button class="btn btn-sm btn-danger delete-item-ajax" data-item="{{ product_id }}">Delete</button>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>

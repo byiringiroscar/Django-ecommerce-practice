@@ -1,0 +1,30 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+	<div class="col-lg-6">
+		<img style="border:1px solid #888" src="{{product.imageURL}}">
+	</div>
+
+	<div style="padding:50px" class="col-lg-6">
+
+		<h3>{{product.name}}</h3>
+		<hr>
+
+		<form method="POST" action="">
+			{% csrf_token %}
+			<input min="1" value=1 type="number" class="product-quantity-one-{{ product.id }}" name="quantity" id="productQty">
+                <input type="hidden" class="product-id-one-{{ product.id }}" value="{{ product.id }}">
+                <input type="hidden" class="product-image-one-{{ product.id }}" value="{{ product.imageURL }}">
+                <input type="hidden" class="product-title-one-{{ product.id }}" value="{{ product.name }}">
+                <input type="hidden" class="product-price-one-{{ product.id }}" value="{{ product.price }}">
+{#			<input class="btn btn-dark" type="submit" value="Add to Cart">#}
+            <button class="btn btn-dark add-to-cart-ajax" type="button" data-index="{{ product.id }}" id="addToCartBtn">Add to Cart</button>
+		</form>
+
+		<h2 class="product-price-one">Price: ${{product.price}}</h2>
+	</div>
+</div>
+
+{% endblock content %}

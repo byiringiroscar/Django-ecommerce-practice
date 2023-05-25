@@ -1,0 +1,30 @@
+{% extends 'store/main.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="row">
+    {% for product in products %}
+        <div class="col-lg-4">
+            <img class="thumbnail" src="{{ product.imageURL }}">
+            <div class="box-element product">
+                <h6><strong>{{ product.name }}</strong></h6>
+                <hr>
+                <input min="1" value=1 type="hidden" class="product-quantity-one-{{ product.id }}" name="quantity" id="productQty">
+                <input type="hidden" class="product-id-one-{{ product.id }}" value="{{ product.id }}">
+                <input type="hidden" class="product-image-one-{{ product.id }}" value="{{ product.imageURL }}">
+                <input type="hidden" class="product-title-one-{{ product.id }}" value="{{ product.name }}">
+                <input type="hidden" class="product-price-one-{{ product.id }}" value="{{ product.price }}">
+                <button class="btn btn-outline-secondary add-to-cart-ajax" data-index="{{ product.id }}">Add to Cart</button>
+                <a href="{% url 'product_ajx' product.id %}" class="btn btn-outline-success">View</a>
+                <h4 style="display: inline-block; float: right;">${{ product.price|floatformat:2 }}</h4>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+{% endblock %}
+
+
+
